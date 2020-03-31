@@ -6,26 +6,30 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="main.css">
-    <title>Lista de utiles</title>
+    <title>Lista de tareas</title>
 </head>
 <body>
     <div class="container">
-            <div id="listaCompras">
-                <div class="header">
-                    <h1> {{ header.toLocaleUpperCase() }} </h1>
-                    <button v-if="estado === 'default'" class="btn btn-primary" @click="cambiarEstado('edit')">Agregar</button>
-                    <button v-else class="btn btn-cancel" @click="cambiarEstado('default')">Cancelar</button>
+            <div class="card">
+                <div class="card-body">
+                    <div id="listaCompras">
+                        <div class="header">
+                            <h1> {{ header.toLocaleUpperCase() }} </h1>
+                            <button v-if="estado === 'default'" class="btn btn-primary" @click="cambiarEstado('edit')">Agregar</button>
+                            <button v-else class="btn btn-cancel" @click="cambiarEstado('default')">Cancelar</button>
+                        </div>
+                        <div v-if="estado === 'edit' ">
+                            <input type="text" placeholder="Agregar nueva tarea" v-model="nuevoUtil" @keyup.enter="guardarElemento">
+                            
+                            <button class="btn btn-primary" v-bind:disabled="nuevoUtil.length === 0" @click="guardarElemento"> Guardar</button>
+                        </div>             
+                        <ul>
+                            <li v-for="ele in listarReversa" :class="{tachado : ele.comprado}" @click="cambiarEstadoCompra(ele)"> {{ ele.util }}</li>
+                        </ul>
+                        <p v-if="utiles.length === 0">No existen elementos en la lista.</p>
+                    </div>
                 </div>
-                <div v-if="estado === 'edit' ">
-                    <input type="text" placeholder="Agregar nuevo" v-model="nuevoUtil" @keyup.enter="guardarElemento">
-                    
-                    <button class="btn btn-primary" v-bind:disabled="nuevoUtil.length === 0" @click="guardarElemento"> Guardar</button>
-                </div>             
-                <ul>
-                    <li v-for="ele in listarReversa" :class="{tachado : ele.comprado}" @click="cambiarEstadoCompra(ele)"> {{ ele.util }}</li>
-                </ul>
-                <p v-if="utiles.length === 0">No existen elementos en la lista.</p>
-        </div>
+            </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -34,21 +38,21 @@
         var app = new Vue ({
             el: "#listaCompras",
             data: {
-                header: "Listado de utiles",
+                header: "Lista de tareas 📝",
                 nuevoUtil: "",
                 estado: "default", 
                 utiles: [
                     {
-                        util: "15 lapices",
-                        comprado: true,
+                        util: "Hacer la tarea",
+                        comprado: false,
                     },  
                     {
-                        util: "13 lapices",
-                        comprado: true
+                        util: "Pagar las facturas",
+                        comprado: false
 
                     }, 
                     {
-                        util: "14 lapices",
+                        util: "Ir a comprar comida",
                         comprado: false
                     }   
                 ]
