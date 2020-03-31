@@ -1,4 +1,31 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+}
+
 .tachado{
     text-decoration: line-through;
     color: #9b8c8c;
 }
+
+.container{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+ul{
+   list-style-position: inside;
+   padding:15px;
+}
+
+li{
+    font-size: 23px;
+}
+
+.btn-cancel{
+    margin-bottom: 16px;
+}
+
